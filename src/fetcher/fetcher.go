@@ -13,14 +13,23 @@ import (
 )
 
 func Fetch(URL string) ([]byte,error) {
-	resp, err := http.Get(URL)
+	client := &http.Client{}
+	req, err := http.NewRequest("GET", URL, nil)
+	if err != nil{
+		panic(err)
+	}
+	req.Header.Add("User-Agent", "myClient")
+	resp, err := client.Do(req)
+
+	//resp, err := http.Get(URL)
+
 	if err != nil{
 		 return nil, err
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK{
-		return nil,fmt.Errorf("http get code:%d",resp.StatusCode)
+		return nil,fmt.Errorf("---------http get code:%d",resp.StatusCode)
 	}
 	//将获取的编码转为utf-8编码
 	en := determineEncoding(resp.Body)
