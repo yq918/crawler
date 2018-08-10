@@ -10,9 +10,13 @@ import (
 	"bufio"
 	"golang.org/x/net/html/charset"
 	"golang.org/x/text/encoding/unicode"
+	"time"
 )
 
+var reTime = time.Tick(10 * time.Millisecond)
+
 func Fetch(URL string) ([]byte,error) {
+	<-reTime
 	client := &http.Client{}
 	req, err := http.NewRequest("GET", URL, nil)
 	if err != nil{

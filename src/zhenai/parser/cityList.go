@@ -19,9 +19,9 @@ func ParseCityList(contents []byte ) engine.ParserResult {
 			ParserFunc:ParseCity,
 		})
 		i++
-		if i >= 6{
-			break
-		}
+		//if i >= 6{
+		//	break
+		//}
 	}
 
    return  result
